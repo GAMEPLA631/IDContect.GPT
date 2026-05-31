@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KORTEX CINEMA — Hudobná distribúcia</title>
+  <meta name="description" content="Moderná platforma pre odoslanie hudby na distribúciu do KORTEX CINEMA s Content ID, copyright claim systémom a profesionálnym formulárom." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #08070c;
+      --bg-2: #0f0d17;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.09);
+      --line: rgba(255,255,255,0.14);
+      --line-strong: rgba(255,255,255,0.22);
+      --text: #f5f2ff;
+      --muted: #b9b2cc;
+      --muted-2: #8d86a5;
+      --accent: #b8ff3b;
+      --accent-2: #7c5cff;
+      --accent-3: #19d3ff;
+      --danger: #ff5a7a;
+      --success: #62f5b0;
+      --shadow: 0 20px 80px rgba(0,0,0,.45);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1320px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Space Grotesk", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(124,92,255,.18), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(25,211,255,.14), transparent 24%),
+        radial-gradient(circle at 50% 85%, rgba(184,255,59,.08), transparent 28%),
+        linear-gradient(180deg, #06060a 0%, #09080f 30%, #0d0b15 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
+      opacity:.35;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%}
+    button,input,select,textarea{font:inherit}
+
+    .wrap{
+      width:min(calc(100% - 32px), var(--max));
+      margin-inline:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(8,7,12,.82), rgba(8,7,12,.45));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:16px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand-mark{
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      background:
+        conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-3), var(--accent-2), var(--accent));
+      position:relative;
+      box-shadow:0 0 0 1px rgba(255,255,255,.14), 0 12px 30px rgba(124,92,255,.25);
+      flex:none;
+    }
+
+    .brand-mark::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius:10px;
+      background:#0b0912;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+
+    .brand-mark::after{
+      content:"K";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-family:"Syne", sans-serif;
+      font-weight:800;
+      color:var(--text);
+      font-size:1.15rem;
+      letter-spacing:.08em;
+    }
+
+    .brand-text strong{
+      display:block;
+      font-family:"Syne", sans-serif;
+      font-size:1rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .brand-text span{
+      display:block;
+      color:var(--muted);
+      font-size:.86rem;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      color:var(--muted);
+      font-size:.95rem;
+      transition:.25s ease;
+    }
+
+    .nav a:hover{color:var(--text)}
+
+    .nav-cta{
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+    }
+
+    .hero{
+      padding:56px 0 28px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:28px;
+      align-items:stretch;
+    }
+
+    .hero-copy,
+    .hero-side,
+    .info-strip,
+    .section-panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy{
+      padding: clamp(28px, 5vw, 56px);
+      position:relative;
+      overflow:hidden;
+      min-height:560px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .hero-copy::before{
+      content:"";
+      position:absolute;
+      width:420px;height:420px;
+      border-radius:50%;
+      right:-120px; top:-80px;
+      background: radial-gradient(circle, rgba(124,92,255,.34), transparent 62%);
+      pointer-events:none;
+      filter: blur(10px);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      background:rgba(255,255,255,.04);
+      width:max-content;
+      font-size:.88rem;
+      letter-spacing:.04em;
+    }
+
+    .eyebrow-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 16px rgba(184,255,59,.8);
+    }
+
+    h1,h2,h3{
+      font-family:"Syne", sans-serif;
+      margin:0;
+      line-height:.95;
+      letter-spacing:-.04em;
+    }
+
+    h1{
+      font-size:clamp(3rem, 8vw, 7rem);
+      max-width:10ch;
+      margin-top:18px;
+      text-transform:uppercase;
+    }
+
+    .hero-lead{
+      max-width:62ch;
+      color:var(--muted);
+      font-size:clamp(1rem, 1.5vw, 1.14rem);
+      line-height:1.75;
+      margin-top:22px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:15px 22px;
+      font-weight:700;
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn:hover{transform:translateY(-2px) scale(1.01)}
+    .btn:active{transform:translateY(0) scale(.99)}
+
+    .btn-primary{
+      color:#0b0a10;
+      background:linear-gradient(135deg, var(--accent), #d8ff8d);
+      box-shadow:0 10px 30px rgba(184,255,59,.25);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.14);
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:32px;
+    }
+
+    .meta-block{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .meta-block strong{
+      display:block;
+      font-size:1.4rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:6px;
+    }
+
+    .meta-block span{
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.45;
+    }
+
+    .hero-side{
+      padding:20px;
+      display:grid;
+      grid-template-rows:auto auto 1fr;
+      gap:18px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero-side::after{
+      content:"";
+      position:absolute;
+      inset:auto -80px -80px auto;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(25,211,255,.22), transparent 65%);
+      filter: blur(8px);
+      pointer-events:none;
+    }
+
+    .side-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .side-head h2{
+      font-size:clamp(1.4rem, 2vw, 2rem);
+    }
+
+    .status-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:700;
+      color:#08110c;
+      background:linear-gradient(135deg, var(--success), #caffdf);
+    }
+
+    .content-id-board{
+      border-radius:22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+    }
+
+    .board-top{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      gap:0;
+      padding:14px 18px;
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted-2);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+
+    .board-row{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      padding:16px 18px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      align-items:center;
+      gap:12px;
+    }
+
+    .board-row:last-child{border-bottom:none}
+
+    .track-title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .track-title strong{font-size:1rem}
+    .track-title span{color:var(--muted); font-size:.88rem}
+
+    .id-chip{
+      width:max-content;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--accent-3);
+      font-weight:700;
+      font-size:.85rem;
+      letter-spacing:.04em;
+    }
+
+    .claim{
+      color:var(--success);
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    .claim.warn{color:var(--danger)}
+
+    .claim-note{
+      padding:18px;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(124,92,255,.14), rgba(25,211,255,.08));
+      border:1px solid rgba(255,255,255,.09);
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+
+    .info-strip{
+      margin-top:26px;
+      padding:22px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+    }
+
+    .info-item{
+      padding:8px 6px;
+    }
+
+    .info-item strong{
+      display:block;
+      font-size:.82rem;
+      color:var(--muted-2);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:8px;
+    }
+
+    .info-item span{
+      display:block;
+      font-size:1.08rem;
+      line-height:1.5;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:28px;
+      padding:34px 0 80px;
+      align-items:start;
+    }
+
+    .section-panel{
+      padding:clamp(22px, 3vw, 34px);
+    }
+
+    .section-kicker{
+      color:var(--accent);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.82rem;
+      margin-bottom:12px;
+      font-weight:700;
+    }
+
+    .section-panel h2{
+      font-size:clamp(2rem, 4vw, 3.5rem);
+      margin-bottom:16px;
+      text-transform:uppercase;
+    }
+
+    .section-text{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:62ch;
+      margin-bottom:24px;
+    }
+
+    .feature-flow{
+      display:grid;
+      gap:16px;
+      margin-top:26px;
+    }
+
+    .flow-item{
+      display:grid;
+      grid-template-columns:72px 1fr;
+      gap:16px;
+      align-items:start;
+      padding:18px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .flow-item:first-child{border-top:none;padding-top:0}
+
+    .flow-num{
+      width:56px;height:56px;border-radius:18px;
+      display:grid;place-items:center;
+      font-family:"Syne", sans-serif;
+      font-size:1.2rem;
+      font-weight:800;
+      color:#0b0a10;
+      background:linear-gradient(135deg, var(--accent), #f0ffc7);
+      box-shadow:0 10px 25px rgba(184,255,59,.18);
+    }
+
+    .flow-item h3{
+      font-size:1.15rem;
+      margin-bottom:6px;
+      line-height:1.15;
+    }
+
+    .flow-item p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .terms{
+      display:grid;
+      gap:18px;
+    }
+
+    .term-line{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      padding:16px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .term-line:first-child{border-top:none;padding-top:0}
+
+    .term-icon{
+      width:42px;height:42px;border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      display:grid;place-items:center;
+      color:var(--accent-3);
+      flex:none;
+      font-weight:700;
+    }
+
+    .term-line strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:1rem;
+    }
+
+    .term-line span{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+
+    .form-section{
+      padding-bottom:90px;
+    }
+
+    .form-shell{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .form-panel, .side-panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .form-panel{
+      padding:clamp(22px, 3vw, 34px);
+    }
+
+    .form-header{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+    .form-header h2{
+      font-size:clamp(2rem, 4vw, 3.6rem);
+      text-transform:uppercase;
+    }
+
+    .form-badge{
+      padding:12px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      font-size:.88rem;
+    }
+
+    form{
+      display:grid;
+      gap:26px;
+    }
+
+    .group{
+      display:grid;
+      gap:14px;
+    }
+
+    .group-title{
+      font-family:"Syne", sans-serif;
+      font-size:1.1rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .grid-2, .grid-3{
+      display:grid;
+      gap:14px;
+    }
+
+    .grid-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3, minmax(0,1fr))}
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field label{
+      font-size:.9rem;
+      color:var(--muted);
+      letter-spacing:.02em;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:none;
+      outline:none;
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:18px;
+      padding:15px 16px;
+      transition:border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease;
+      min-height:56px;
+    }
+
+    .field textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:rgba(184,255,59,.6);
+      background:rgba(255,255,255,.07);
+      box-shadow:0 0 0 4px rgba(184,255,59,.08);
+      transform:translateY(-1px);
+    }
+
+    .field small{
+      color:var(--muted-2);
+      font-size:.82rem;
+      line-height:1.5;
+    }
+
+    .check-grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .check{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .check input{
+      margin-top:4px;
+      accent-color: var(--accent);
+      transform:scale(1.15);
+    }
+
+    .check label{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:.94rem;
+    }
+
+    .submit-row{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:14px;
+      padding-top:8px;
+    }
+
+    .submit-note{
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.6;
+      max-width:50ch;
+    }
+
+    .status-message{
+      display:none;
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      font-size:.95rem;
+      line-height:1.6;
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .status-message.show{display:block}
+    .status-success{
+      background:rgba(98,245,176,.08);
+      color:#d7ffec;
+      border-color:rgba(98,245,176,.3);
+    }
+    .status-error{
+      background:rgba(255,90,122,.08);
+      color:#ffdbe3;
+      border-color:rgba(255,90,122,.3);
+    }
+
+    .side-panel{
+      padding:22px;
+      display:grid;
+      gap:18px;
+      position:sticky;
+      top:92px;
+    }
+
+    .mini-panel{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .mini-panel h3{
+      font-size:1.15rem;
+      margin-bottom:10px;
+      text-transform:uppercase;
+    }
+
+    .mini-panel p,
+    .mini-panel li{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+
+    .mini-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .ai-box{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .ai-box::before{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:180px;height:180px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(184,255,59,.16), transparent 65%);
+      pointer-events:none;
+    }
+
+    .claim-visual{
+      margin-top:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+      background:rgba(0,0,0,.18);
+    }
+
+    .claim-header, .claim-line{
+      display:grid;
+      grid-template-columns:1fr .8fr .8fr;
+      gap:10px;
+      padding:12px 14px;
+    }
+
+    .claim-header{
+      color:var(--muted-2);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.76rem;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .claim-line{
+      font-size:.9rem;
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+
+    .claim-line:last-child{border-bottom:none}
+    .ok{color:var(--success);font-weight:700}
+    .flag{color:var(--danger);font-weight:700}
+
+    footer{
+      padding:0 0 40px;
+    }
+
+    .footer-panel{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .stagger > *{
+      opacity:0;
+      transform:translateY(18px);
+      animation:rise .8s ease forwards;
+    }
+    .stagger > *:nth-child(1){animation-delay:.08s}
+    .stagger > *:nth-child(2){animation-delay:.16s}
+    .stagger > *:nth-child(3){animation-delay:.24s}
+    .stagger > *:nth-child(4){animation-delay:.32s}
+    .stagger > *:nth-child(5){animation-delay:.4s}
+    .stagger > *:nth-child(6){animation-delay:.48s}
+
+    @keyframes rise{
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    @media (max-width: 1100px){
+      .hero-grid,
+      .main-grid,
+      .form-shell{
+        grid-template-columns:1fr;
+      }
+
+      .side-panel{
+        position:relative;
+        top:0;
+      }
+    }
+
+    @media (max-width: 760px){
+      .topbar-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-copy{min-height:auto}
+      .hero-meta,
+      .info-strip,
+      .grid-2,
+      .grid-3{
+        grid-template-columns:1fr;
+      }
+
+      .board-top,
+      .board-row,
+      .claim-header,
+      .claim-line{
+        grid-template-columns:1fr;
+      }
+
+      h1{max-width:12ch}
+      .submit-row{flex-direction:column; align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#top" class="brand" aria-label="KORTEX CINEMA domov">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-text">
+          <strong>KORTEX CINEMA</strong>
+          <span>Hudobná distribúcia • Content ID • AI Copyright Claims</span>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Hlavná navigácia">
+        <a href="#system">Systém</a>
+        <a href="#formular">Formulár</a>
+        <a href="#pravidla">Podmienky</a>
+        <a href="#formular" class="nav-cta">Začať distribúciu</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <article class="hero-copy stagger">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Moderná distribučná platforma pre autorov hudby
+              </div>
+
+              <h1>KORTEX MUSIC DELIVERY</h1>
+
+              <p class="hero-lead">
+                Vyplň release formulár, odošli skladbu na distribúciu a nastav si vlastníctvo práv pre
+                <strong>KORTEX CINEMA</strong>. Každý titul môže mať priradený <strong>Content ID</strong>,
+                sledovanie použití vo videách a automatické označenie ako
+                <strong>copyright claim</strong>, aby výnosy smerovali k autorovi.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#formular">Vyplniť formulár</a>
+                <a class="btn btn-secondary" href="#system">Ako funguje systém</a>
+              </div>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-block">
+                <strong>Release ready</strong>
+                <span>Single, EP, album, soundtrack, remix, clean aj explicit verzie.</span>
+              </div>
+              <div class="meta-block">
+                <strong>Content ID</strong>
+                <span>Každému nahranému dielu môže byť priradené unikátne identifikačné mapovanie.</span>
+              </div>
+              <div class="meta-block">
+                <strong>Claims AI</strong>
+                <span>Pri použití vo videu systém označí zhodu a výnosy sa priradia autorovi.</span>
+              </div>
+            </div>
+          </article>
+
+          <aside class="hero-side stagger" aria-label="Ukážka Content ID tabuľky">
+            <div class="side-head">
+              <h2>Content ID Dashboard</h2>
+              <div class="status-pill">AI ACTIVE</div>
+            </div>
+
+            <div class="content-id-board">
+              <div class="board-top">
+                <div>Skladba</div>
+                <div>ID Content</div>
+                <div>Claim status</div>
+              </div>
+              <div class="board-row">
+                <div class="track-title">
+                  <strong>Midnight Echo</strong>
+                  <span>Single • KORTEX CINEMA</span>
+                </div>
+                <div><span class="id-chip">KC-ID-7A91X</span></div>
+                <div><span class="claim">Aktívne</span></div>
+              </div>
+              <div class="board-row">
+                <div class="track-title">
+                  <strong>Neon Memory</strong>
+                  <span>Album Track • KORTEX CINEMA</span>
+                </div>
+                <div><span class="id-chip">KC-ID-3P44Q</span></div>
+                <div><span class="claim warn">Video match</span></div>
+              </div>
+              <div class="board-row">
+                <div class="track-title">
+                  <strong>Vanta Pulse</strong>
+                  <span>Instrumental • KORTEX CINEMA</span>
+                </div>
+                <div><span class="id-chip">KC-ID-9M20L</span></div>
+                <div><span class="claim">Monetized</span></div>
+              </div>
+            </div>
+
+            <div class="claim-note">
+              Ak niekto pridá tvoju hudbu do videa na platforme napojenej na AI dohľad,
+              systém vytvorí zhodu, označí obsah ako <strong>Copyright Claim</strong>
+              a monetizácia sa presmeruje na vlastníka práv podľa údajov z formulára.
+            </div>
+          </aside>
+        </div>
+
+        <div class="info-strip reveal">
+          <div class="info-item">
+            <strong>Platforma</strong>
+            <span>KORTEX CINEMA</span>
+          </div>
+          <div class="info-item">
+            <strong>Odoslanie</strong>
+            <span>Priamo cez online formulár</span>
+          </div>
+          <div class="info-item">
+            <strong>Oznámenie</strong>
+            <span>Dáta sa pošlú na email cez FormInit endpoint</span>
+          </div>
+          <div class="info-item">
+            <strong>Autor práva</strong>
+            <span>Výnosy z claimu smerujú autorovi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap main-grid" id="system">
+      <article class="section-panel reveal">
+        <div class="section-kicker">Ako to funguje</div>
+        <h2>Distribúcia bez chaosu</h2>
+        <p class="section-text">
+          Táto stránka je navrhnutá ako profesionálny intake systém pre hudobné releasy.
+          Autor alebo label vyplní kompletné metadata, informácie o právach, publikácii,
+          interpretovi, autoroch, explicitnosti, ISRC/UPC a nastavení Content ID.
+          Po odoslaní sa údaje pošlú na zvolený formulárový endpoint a môžu byť spracované
+          pre interný release pipeline.
+        </p>
+
+        <div class="feature-flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div>
+              <h3>Vyplnenie release formulára</h3>
+              <p>Vyplníš názov skladby, meno interpreta, dátum vydania, typ releasu, žáner, jazyk, autorov, publisher údaje a ďalšie povinné metadáta.</p>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div>
+              <h3>Priradenie práv a Content ID</h3>
+              <p>Označíš, či chceš aktivovať copyright monitoring, monetizáciu a Content ID identifikáciu pre video platformy a interné párovanie v KORTEX CINEMA.</p>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div>
+              <h3>AI detekcia použitia vo videách</h3>
+              <p>Keď systém nájde zhodu zvuku v nahranom videu, automaticky vytvorí copyright claim a výnos z monetizácie sa mapuje na registrovaného autora.</p>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div>
+              <h3>Správa release údajov</h3>
+              <p>Údaje z formulára sú pripravené na ďalšie interné spracovanie, schválenie, kontrolu a zaradenie do publikačného workflow platformy.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="section-panel reveal" id="pravidla">
+        <div class="section-kicker">Dôležité pravidlá</div>
+        <h2>Práva & validácia</h2>
+
+        <div class="terms">
+          <div class="term-line">
+            <div class="term-icon">01</div>
+            <div>
+              <strong>Musíš vlastniť alebo mať licenciu na distribúciu</strong>
+              <span>Odosielaj len obsah, ku ktorému máš plné práva, povolenie alebo zmluvné oprávnenie na monetizáciu a claimovanie.</span>
+            </div>
+          </div>
+
+          <div class="term-line">
+            <div class="term-icon">02</div>
+            <div>
+              <strong>Metadata musia byť presné</strong>
+              <span>Nesprávny názov skladby, autori, featuring alebo dátum vydania môžu spôsobiť zamietnutie alebo chybné mapovanie práv.</span>
+            </div>
+          </div>
+
+          <div class="term-line">
+            <div class="term-icon">03</div>
+            <div>
+              <strong>Obrázok a audio doplníš sám</strong>
+              <span>Táto verzia formulára je pripravená bez upload náhľadu coveru. Cover si doplníš podľa vlastného workflow a interného spracovania.</span>
+            </div>
+          </div>
+
+          <div class="term-line">
+            <div class="term-icon">04</div>
+            <div>
+              <strong>Copyright claim príjmy idú autorovi</strong>
+              <span>Ak AI systém nájde použitie vo videu a claim je platný, príjmy z monetizácie smerujú vlastníkovi práv uvedenému v release formulári.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="form-section" id="formular">
+      <div class="wrap form-shell">
+        <section class="form-panel reveal">
+          <div class="form-header">
+            <div>
+              <div class="section-kicker">Release intake</div>
+              <h2>Distribučný formulár</h2>
+            </div>
+            <div class="form-badge">Odoslanie cez FormInit</div>
+          </div>
+
+          <form id="releaseForm" action="https://forminit.com/f/bvrmwxdb" method="POST">
+            <div class="group">
+              <div class="group-title">Kontakt a účet</div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="fullName">Meno a priezvisko / názov labelu *</label>
+                  <input id="fullName" name="full_name" type="text" required placeholder="Napr. Martin Novák / Dark Signal Records">
+                </div>
+                <div class="field">
+                  <label for="email">Email pre potvrdenie *</label>
+                  <input id="email" name="email" type="email" required placeholder="tvoj@email.com">
+                </div>
+                <div class="field">
+                  <label for="artistName">Umelecké meno interpreta *</label>
+                  <input id="artistName" name="artist_name" type="text" required placeholder="Napr. KORTEX WAVES">
+                </div>
+                <div class="field">
+                  <label for="labelName">Label / vydavateľ</label>
+                  <input id="labelName" name="label_name" type="text" placeholder="Ak nemáš label, nechaj prázdne">
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="group-title">Release informácie</div>
+              <div class="grid-3">
+                <div class="field">
+                  <label for="releaseType">Typ releasu *</label>
+                  <select id="releaseType" name="release_type" required>
+                    <option value="">Vyber typ</option>
+                    <option>Single</option>
+                    <option>EP</option>
+                    <option>Album</option>
+                    <option>Soundtrack</option>
+                    <option>Remix</option>
+                    <option>Instrumental</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="releaseTitle">Názov releasu *</label>
+                  <input id="releaseTitle" name="release_title" type="text" required placeholder="Napr. Midnight Echo">
+                </div>
+                <div class="field">
+                  <label for="primaryGenre">Primárny žáner *</label>
+                  <input id="primaryGenre" name="primary_genre" type="text" required placeholder="Hip-Hop, Pop, EDM, Film Score...">
+                </div>
+
+                <div class="field">
+                  <label for="secondaryGenre">Sekundárny žáner</label>
+                  <input id="secondaryGenre" name="secondary_genre" type="text" placeholder="Voliteľné">
+                </div>
+                <div class="field">
+                  <label for="language">Jazyk textu *</label>
+                  <input id="language" name="language" type="text" required placeholder="Slovak, English, Instrumental...">
+                </div>
+                <div class="field">
+                  <label for="releaseDate">Plánovaný dátum vydania *</label>
+                  <input id="releaseDate" name="release_date" type="date" required>
+                </div>
+
+                <div class="field">
+                  <label for="version">Verzia skladby</label>
+                  <input id="version" name="version" type="text" placeholder="Original Mix, Radio Edit, Clean Version...">
+                </div>
+                <div class="field">
+                  <label for="explicit">Explicit obsah *</label>
+                  <select id="explicit" name="explicit_content" required>
+                    <option value="">Vyber</option>
+                    <option>No</option>
+                    <option>Yes</option>
+                    <option>Clean</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="territory">Distribučné územie *</label>
+                  <select id="territory" name="territory" required>
+                    <option value="">Vyber</option>
+                    <option>Worldwide</option>
+                    <option>Europe only</option>
+                    <option>Selected territories</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="group-title">Track metadata</div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="trackTitle">Názov hlavnej skladby *</label>
+                  <input id="trackTitle" name="track_title" type="text" required placeholder="Názov tracku">
+                </div>
+                <div class="field">
+                  <label for="featuredArtists">Featuring interpreti</label>
+                  <input id="featuredArtists" name="featured_artists" type="text" placeholder="Napr. feat. NIKA / nechaj prázdne">
+                </div>
+                <div class="field">
+                  <label for="composer">Autor hudby / skladateľ *</label>
+                  <input id="composer" name="composer" type="text" required placeholder="Meno autora hudby">
+                </div>
+                <div class="field">
+                  <label for="lyricist">Autor textu</label>
+                  <input id="lyricist" name="lyricist" type="text" placeholder="Ak je instrumental, môže zostať prázdne">
+                </div>
+                <div class="field">
+                  <label for="producer">Producent</label>
+                  <input id="producer" name="producer" type="text" placeholder="Meno producenta">
+                </div>
+                <div class="field">
+                  <label for="isrc">ISRC kód</label>
+                  <input id="isrc" name="isrc" type="text" placeholder="Ak máš vlastný ISRC, zadaj ho">
+                </div>
+                <div class="field">
+                  <label for="upc">UPC / EAN</label>
+                  <input id="upc" name="upc" type="text" placeholder="Voliteľné">
+                </div>
+                <div class="field">
+                  <label for="duration">Dĺžka skladby *</label>
+                  <input id="duration" name="duration" type="text" required placeholder="Napr. 03:24">
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="group-title">Práva a monetizácia</div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="copyrightOwner">Vlastník autorských práv *</label>
+                  <input id="copyrightOwner" name="copyright_owner" type="text" required placeholder="Meno osoby alebo firmy">
+                </div>
+                <div class="field">
+                  <label for="publishingOwner">Vlastník publishing práv</label>
+                  <input id="publishingOwner" name="publishing_owner" type="text" placeholder="Publisher / self-published">
+                </div>
+                <div class="field">
+                  <label for="copyrightYear">Rok copyrightu *</label>
+                  <input id="copyrightYear" name="copyright_year" type="number" required min="1900" max="2100" placeholder="2026">
+                </div>
+                <div class="field">
+                  <label for="publisherPercent">Percento práv pre autora *</label>
+                  <input id="publisherPercent" name="author_revenue_percent" type="number" required min="0" max="100" placeholder="100">
+                  <small>Pri copyright claimoch sa výnos mapuje podľa registrovaného vlastníctva.</small>
+                </div>
+              </div>
+
+              <div class="check-grid">
+                <div class="check">
+                  <input id="contentId" name="enable_content_id" type="checkbox" value="Yes" checked>
+                  <label for="contentId">Aktivovať <strong>Content ID</strong> pre KORTEX CINEMA a priradiť interné ID pre párovanie použitia vo videách.</label>
+                </div>
+                <div class="check">
+                  <input id="copyrightClaims" name="enable_copyright_claims" type="checkbox" value="Yes" checked>
+                  <label for="copyrightClaims">Aktivovať <strong>AI copyright claim monitoring</strong> — pri zhode vo videu sa vytvorí claim a monetizácia sa priradí autorovi.</label>
+                </div>
+                <div class="check">
+                  <input id="monetization" name="enable_monetization" type="checkbox" value="Yes" checked>
+                  <label for="monetization">Povoliť monetizáciu videí a výber výnosov z oprávnených použití registrovanej hudby.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="group-title">Dodatočné údaje</div>
+              <div class="field">
+                <label for="notes">Poznámky k releasu / interné inštrukcie</label>
+                <textarea id="notes" name="notes" placeholder="Sem môžeš napísať dôležité informácie, featuring poradie, clean/explicit špecifikáciu, release stratégiu, poznámku k coveru alebo audio súboru."></textarea>
+              </div>
+
+              <div class="field">
+                <label for="platformNotes">Poznámka ku KORTEX CINEMA distribúcii</label>
+                <textarea id="platformNotes" name="platform_notes" placeholder="Napr. chcem aktivovať automatické označovanie videí, claim smerovať na autora a pridať release do interného katalógu KORTEX CINEMA."></textarea>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="group-title">Potvrdenie</div>
+              <div class="check-grid">
+                <div class="check">
+                  <input id="confirmRights" name="confirm_rights" type="checkbox" value="Yes" required>
+                  <label for="confirmRights">Potvrdzujem, že vlastním potrebné práva alebo mám povolenie na distribúciu, monetizáciu a copyright claim správu tejto hudby.</label>
+                </div>
+                <div class="check">
+                  <input id="confirmAccuracy" name="confirm_accuracy" type="checkbox" value="Yes" required>
+                  <label for="confirmAccuracy">Potvrdzujem, že všetky vyplnené informácie sú pravdivé, presné a pripravené na interné spracovanie.</label>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_subject" value="Nová žiadosť o distribúciu hudby — KORTEX CINEMA">
+            <input type="hidden" name="platform" value="KORTEX CINEMA">
+            <input type="hidden" name="source" value="KORTEX Music Distribution Form">
+
+            <div class="submit-row">
+              <button class="btn btn-primary" type="submit" id="submitBtn">Odoslať na distribúciu</button>
+              <div class="submit-note">
+                Po odoslaní sa formulár pošle cez tvoj FormInit endpoint:
+                <strong>https://forminit.com/f/bvrmwxdb</strong>
+              </div>
+            </div>
+
+            <div id="formStatus" class="status-message" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <aside class="side-panel reveal">
+          <div class="mini-panel ai-box">
+            <h3>AI Copyright Claim Engine</h3>
+            <p>
+              Po registrácii tracku môže systém vytvoriť interný odtlačok pre rozpoznávanie.
+              Ak niekto použije tvoju hudbu vo videu, zhodný obsah sa označí a príslušná monetizácia
+              sa presmeruje podľa práv uvedených vo formulári.
+            </p>
+
+            <div class="claim-visual" aria-hidden="true">
+              <div class="claim-header">
+                <div>Upload video</div>
+                <div>Audio match</div>
+                <div>Revenue</div>
+              </div>
+              <div class="claim-line">
+                <div>Creator video #104</div>
+                <div class="flag">Claim detected</div>
+                <div>To author</div>
+              </div>
+              <div class="claim-line">
+                <div>Short clip #728</div>
+                <div class="ok">Matched</div>
+                <div>Monetized</div>
+              </div>
+              <div class="claim-line">
+                <div>Trailer #208</div>
+                <div class="ok">Active ID</div>
+                <div>Protected</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-panel">
+            <h3>Čo pripraviť pred odoslaním</h3>
+            <ul>
+              <li>Presný názov skladby a mena všetkých interpretov</li>
+              <li>Autorské a publishing údaje</li>
+              <li>Dátum vydania a typ releasu</li>
+              <li>Informáciu, či chceš Content ID a copyright claims</li>
+              <li>Cover a audio podľa tvojho interného procesu</li>
+            </ul>
+          </div>
+
+          <div class="mini-panel">
+            <h3>Poznámka k obrázku</h3>
+            <p>
+              Ako si žiadal, obrázok nie je súčasťou uploadu v tejto verzii.
+              Cover si doplníš sám mimo formulára.
+            </p>
+          </div>
+
+          <div class="mini-panel">
+            <h3>Emailové odoslanie</h3>
+            <p>
+              Formulár je napojený priamo na tvoj odosielací endpoint. Po kliknutí na odoslanie
+              sa údaje odošlú cez <strong>POST</strong> na FormInit.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-panel">
+      <div>© 2026 KORTEX CINEMA — Distribučný systém pre hudbu a Content ID správu.</div>
+      <div>Navrhnuté pre moderný release intake workflow.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const form = document.getElementById('releaseForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusBox = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Odosiela sa...';
+      statusBox.className = 'status-message';
+      statusBox.textContent = '';
+
+      try{
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if(response.ok){
+          statusBox.className = 'status-message status-success show';
+          statusBox.textContent = 'Formulár bol úspešne odoslaný. Údaje o distribúcii boli poslané na email cez FormInit endpoint.';
+          form.reset();
+        } else {
+          throw new Error('Odoslanie zlyhalo.');
+        }
+      } catch (error){
+        statusBox.className = 'status-message status-error show';
+        statusBox.textContent = 'Nepodarilo sa odoslať formulár. Skontroluj endpoint alebo internetové pripojenie a skús to znova.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Odoslať na distribúciu';
+      }
+    });
+  </script>
+</body>
+</html>
